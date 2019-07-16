@@ -6,7 +6,7 @@ declare(strict_types=1);
  * Time: 13:52
  */
 
-namespace Resolver;
+namespace InstanceResolver;
 
 /**
  * Class ResolverParameter

@@ -95,16 +95,16 @@
         },
         {
             "name": "fzed51/run-test",
-            "version": "v1.8.5",
+            "version": "v1.8.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fzed51/run-test.git",
-                "reference": "a0d4fcf2570274f5ce7d3413c490e070a9b03257"
+                "reference": "8ae76b26e8b9f774a16c54aebbd03deb7ceb061f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fzed51/run-test/zipball/a0d4fcf2570274f5ce7d3413c490e070a9b03257",
-                "reference": "a0d4fcf2570274f5ce7d3413c490e070a9b03257",
+                "url": "https://api.github.com/repos/fzed51/run-test/zipball/8ae76b26e8b9f774a16c54aebbd03deb7ceb061f",
+                "reference": "8ae76b26e8b9f774a16c54aebbd03deb7ceb061f",
                 "shasum": ""
             },
             "require": {
@@ -128,7 +128,7 @@
                 }
             ],
             "description": "Outil de test unitaire",
-            "time": "2019-07-12T09:42:51+00:00"
+            "time": "2019-07-16T08:19:33+00:00"
         },
         {
             "name": "pimple/pimple",

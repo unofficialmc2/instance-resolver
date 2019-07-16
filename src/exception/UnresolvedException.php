@@ -6,7 +6,7 @@ declare(strict_types=1);
  * Time: 13:54
  */
 
-namespace Resolver\Exception;
+namespace InstanceResolver\Exception;
 
 /**
  * Class UnresolvedException

@@ -6,7 +6,7 @@ declare(strict_types=1);
  * Time: 13:50
  */
 
-namespace Resolver;
+namespace InstanceResolver;
 
 use Psr\Container\ContainerInterface;
 
