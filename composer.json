@@ -1,18 +1,20 @@
 {
-    "name": "fzed51/instance-resolver",
-    "description": "Resolver d'instace, auto link",
-    "type": "library",
-    "require-dev": {
-        "fzed51/run-test": "^1.8",
-        "pimple/pimple": "^3.2"
-    },
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Fabien Sanchez",
-            "email": "fzed51+git@gmail.com"
-        }
-    ],
-    "minimum-stability": "stable",
-    "require": {}
+  "name": "fzed51/instance-resolver",
+  "description": "Resolver d'instace, auto link",
+  "type": "library",
+  "require-dev": {
+    "fzed51/run-test": "^1.8",
+    "pimple/pimple": "^3.2"
+  },
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Fabien Sanchez",
+      "email": "fzed51+git@gmail.com"
+    }
+  ],
+  "minimum-stability": "stable",
+  "require": {
+    "psr/container": "^1.0"
+  }
 }
