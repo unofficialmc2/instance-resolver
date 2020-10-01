@@ -5,3 +5,4 @@
 # COMPOSER
 vendor/
 # PROJECT
+/.phpunit.result.cache
