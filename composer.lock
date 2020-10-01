@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "30f8e2b9bbdc386e936992979fd04806",
+    "content-hash": "0c2231fc46021d41fefe022df2fbb6e7",
     "packages": [
         {
             "name": "psr/container",
@@ -126,79 +126,6 @@
                 }
             ],
             "time": "2020-05-29T17:27:14+00:00"
-        },
-        {
-            "name": "fzed51/console-options",
-            "version": "v1.1.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/fzed51/console-options.git",
-                "reference": "0049517b5b1bd96d5ffdc4daf89e40ae240559c9"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/fzed51/console-options/zipball/0049517b5b1bd96d5ffdc4daf89e40ae240559c9",
-                "reference": "0049517b5b1bd96d5ffdc4daf89e40ae240559c9",
-                "shasum": ""
-            },
-            "require-dev": {
-                "fzed51/run-test": "^1"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Console\\Options\\": "./src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Fabien Sanchez",
-                    "email": "fzed51@users.noreply.github.com"
-                }
-            ],
-            "description": "option parser pour ligne de commande PHP",
-            "time": "2019-01-30T10:29:11+00:00"
-        },
-        {
-            "name": "fzed51/run-test",
-            "version": "v1.8.6",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/fzed51/run-test.git",
-                "reference": "8ae76b26e8b9f774a16c54aebbd03deb7ceb061f"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/fzed51/run-test/zipball/8ae76b26e8b9f774a16c54aebbd03deb7ceb061f",
-                "reference": "8ae76b26e8b9f774a16c54aebbd03deb7ceb061f",
-                "shasum": ""
-            },
-            "require": {
-                "ext-json": "*",
-                "ext-xdebug": "*",
-                "fzed51/console-options": "^1",
-                "php": "^7.1"
-            },
-            "bin": [
-                "./bin/run-test"
-            ],
-            "type": "library",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Fabien Sanchez",
-                    "email": "fzed51@users.noreply.github.com"
-                }
-            ],
-            "description": "Outil de test unitaire",
-            "time": "2019-07-16T08:19:33+00:00"
         },
         {
             "name": "myclabs/deep-copy",
@@ -1073,29 +1000,29 @@
         },
         {
             "name": "pimple/pimple",
-            "version": "v3.2.3",
+            "version": "v3.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/silexphp/Pimple.git",
-                "reference": "9e403941ef9d65d20cba7d54e29fe906db42cf32"
+                "reference": "e55d12f9d6a0e7f9c85992b73df1267f46279930"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/silexphp/Pimple/zipball/9e403941ef9d65d20cba7d54e29fe906db42cf32",
-                "reference": "9e403941ef9d65d20cba7d54e29fe906db42cf32",
+                "url": "https://api.github.com/repos/silexphp/Pimple/zipball/e55d12f9d6a0e7f9c85992b73df1267f46279930",
+                "reference": "e55d12f9d6a0e7f9c85992b73df1267f46279930",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.0",
+                "php": "^7.2.5",
                 "psr/container": "^1.0"
             },
             "require-dev": {
-                "symfony/phpunit-bridge": "^3.2"
+                "symfony/phpunit-bridge": "^3.4|^4.4|^5.0"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.2.x-dev"
+                    "dev-master": "3.3.x-dev"
                 }
             },
             "autoload": {
@@ -1114,12 +1041,12 @@
                 }
             ],
             "description": "Pimple, a simple Dependency Injection Container",
-            "homepage": "http://pimple.sensiolabs.org",
+            "homepage": "https://pimple.symfony.com",
             "keywords": [
                 "container",
                 "dependency injection"
             ],
-            "time": "2018-01-21T07:42:36+00:00"
+            "time": "2020-03-03T09:12:48+00:00"
         },
         {
             "name": "sebastian/cli-parser",
@@ -2249,7 +2176,9 @@
     "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
-    "platform": [],
+    "platform": {
+        "php": "^7.2"
+    },
     "platform-dev": [],
     "plugin-api-version": "1.1.0"
 }
