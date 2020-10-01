@@ -12,11 +12,7 @@ use Psr\Container\ContainerInterface;
 
 class ResolverClass
 {
-
-    /**
-     * Container
-     * @param ContainerInterface $container
-     */
+    /** @var \Psr\Container\ContainerInterface ContainerInterface */
     private $container;
 
     /**
@@ -66,7 +62,7 @@ class ResolverClass
     /**
      * Resolver de list de paramètres
      * @param \ReflectionParameter[] $parametres
-     * @return array;
+     * @return mixed[];
      */
     protected function resolveParams(array $parametres)
     {

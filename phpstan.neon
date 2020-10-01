@@ -1,0 +1,7 @@
+parameters:
+    level: 6
+    paths:
+        - src
+        - test
+    ignoreErrors:
+        - '#Constructor of class Test\\[A-Z] has an unused parameter#'
