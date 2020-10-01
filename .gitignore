@@ -1,6 +1,7 @@
 # OS
 # IDE
 .vscode/
+.idea/
 # COMPOSER
 vendor/
 # PROJECT
