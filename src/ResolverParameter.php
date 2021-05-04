@@ -42,8 +42,10 @@ class ResolverParameter
                 "Le paramètre $nom ne peut pas être déterminé"
             );
         }
-        $type = $parametre->getType()->getName();
-        if ($this->isNotObject($type)) {
+        /** @var \ReflectionNamedType $type */
+        $type = $parametre->getType();
+        $nameType = $type->getName();
+        if ($this->isNotObject($nameType)) {
             throw new Exception\UnresolvedParameter(
                 "Le paramètre $nom ne peut pas être déterminé"
             );
