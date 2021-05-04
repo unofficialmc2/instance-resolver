@@ -40,8 +40,13 @@ class ResolverClass
             return $this->container;
         }
         if (!class_exists($searchClass) && !interface_exists($searchClass)) {
+            $solutions = $this->listPossibleSolution($searchClass);
+            $strSolution = '';
+            if (!empty($solutions)) {
+                $strSolution = " Autre solutions possible : " . implode(', ', $solutions) . '.';
+            }
             throw new Exception\UnresolvedClass(
-                "La classe $searchClass n'existe pas!"
+                "La classe $searchClass n'existe pas!" . $strSolution
             );
         }
         $refectClass = new \ReflectionClass($searchClass);
@@ -57,6 +62,28 @@ class ResolverClass
             return new $searchClass(...$paramResolved);
         }
         return new $searchClass();
+    }
+
+    /**
+     * recherche un nom parmi les classes et interfaces déjà déclarées
+     * @param string $searchClass
+     * @return string[]
+     */
+    private function listPossibleSolution(string $searchClass): array
+    {
+        $declared = [];
+        foreach (get_declared_classes() as $class) {
+            $declared[] = $class;
+        }
+        foreach (get_declared_interfaces() as $interface) {
+            $declared[] = $interface;
+        }
+        sort($declared);
+        $possible = array_filter($declared, function ($element) use ($searchClass) {
+            return levenshtein($element, $searchClass) < 3
+                || $element === substr($searchClass, -strlen($searchClass));
+        });
+        return $possible;
     }
 
     /**
