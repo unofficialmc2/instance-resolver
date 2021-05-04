@@ -130,4 +130,23 @@ class ResolverClassTest extends TestCase
         $c = $resolver(G::class);
         self::assertInstanceOf(G::class, $c, "ResolverClass doit fournir un objet d'instance " . G::class);
     }
+
+    /**
+     * test de possible solution en cas d'erreur
+     * @throws \ReflectionException
+     */
+    public function testPossibleSolutionInError(): void
+    {
+        $resolver = new ResolverClass($this->getContainer());
+        try {
+            /**
+             * @phpstan-ignore-next-line
+             * @noinspection PhpUndefinedClassInspection
+             */
+            $resolver(\ZicArchive::class);
+        } catch (UnresolvedException $e) {
+            self::assertStringContainsString('ZicArchive', $e->getMessage());
+            self::assertStringContainsString('ZipArchive', $e->getMessage());
+        }
+    }
 }
