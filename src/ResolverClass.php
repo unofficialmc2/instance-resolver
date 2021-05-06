@@ -39,8 +39,18 @@ class ResolverClass
             && is_a($this->container, $searchClass)) {
             return $this->container;
         }
-        if (!class_exists($searchClass) && !interface_exists($searchClass)) {
-            $solutions = $this->listPossibleSolution($searchClass);
+        if (interface_exists($searchClass)) {
+            $solutions = $this->listPossibleInterface($searchClass);
+            $strSolution = '';
+            if (!empty($solutions)) {
+                $strSolution = " Autre solutions possible : " . implode(', ', $solutions) . '.';
+            }
+            throw new Exception\UnresolvedClass(
+                "$searchClass n'est pas une classe mais une interface!." . $strSolution
+            );
+        }
+        if (!class_exists($searchClass)) {
+            $solutions = $this->listPossibleClass($searchClass);
             $strSolution = '';
             if (!empty($solutions)) {
                 $strSolution = " Autre solutions possible : " . implode(', ', $solutions) . '.';
@@ -50,11 +60,6 @@ class ResolverClass
             );
         }
         $refectClass = new \ReflectionClass($searchClass);
-        if ($refectClass->isInterface()) {
-            throw new Exception\UnresolvedClass(
-                "$searchClass n'est pas une classe mais une interface!"
-            );
-        }
         $constructor = $refectClass->getConstructor();
         if (!is_null($constructor)) {
             $paramConstructorList = $constructor->getParameters();
@@ -65,25 +70,49 @@ class ResolverClass
     }
 
     /**
-     * recherche un nom parmi les classes et interfaces déjà déclarées
+     * recherche des items similaire dans une liste
+     * @param string $needle
+     * @param string[] $haystack
+     * @return string[]
+     */
+    private static function similarItems(string $needle, array $haystack): array
+    {
+        return array_filter($haystack, static function ($item) use ($needle) {
+            $itemSmallName = explode('\\', $item);
+            $itemSmallName = array_pop($itemSmallName);
+            $itemSmallName = is_string($itemSmallName) ? $itemSmallName : ''; // @phpstan-ignore-line
+            $needleSmallName = explode('\\', $needle);
+            $needleSmallName = array_pop($needleSmallName);
+            $needleSmallName = is_string($needleSmallName) ? $needleSmallName : ''; // @phpstan-ignore-line
+            $needleCute = substr($needle, -strlen($item));
+            $needleCute = is_string($needleCute) ? $needleCute : ''; // @phpstan-ignore-line
+            return levenshtein($item, $needle) <= 3
+                || levenshtein($item, $needleCute) <= 2
+                || levenshtein($itemSmallName, $needleSmallName) <= 1;
+        });
+    }
+
+    /**
+     * recherche un nom parmi les classes déjà déclarées
      * @param string $searchClass
      * @return string[]
      */
-    private function listPossibleSolution(string $searchClass): array
+    private function listPossibleClass(string $searchClass): array
     {
-        $declared = [];
-        foreach (get_declared_classes() as $class) {
-            $declared[] = $class;
-        }
-        foreach (get_declared_interfaces() as $interface) {
-            $declared[] = $interface;
-        }
-        sort($declared);
-        $possible = array_filter($declared, function ($element) use ($searchClass) {
-            return levenshtein($element, $searchClass) < 3
-                || $element === substr($searchClass, -strlen($searchClass));
+        return self::similarItems($searchClass, get_declared_classes());
+    }
+
+    /**
+     * recherche un nom parmi les interface déclarées dans le container
+     * @param string $searchInterface
+     * @return string[]
+     */
+    private function listPossibleInterface(string $searchInterface): array
+    {
+        $similar = self::similarItems($searchInterface, get_declared_interfaces());
+        return array_filter($similar, function ($interface) {
+            return $this->container->has($interface);
         });
-        return $possible;
     }
 
     /**

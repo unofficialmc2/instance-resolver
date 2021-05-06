@@ -43,6 +43,9 @@ class ResolverClassTest extends TestCase
             $container[E::class] = static function ($c) {
                 return new E("x");
             };
+            $container[\PHPUnit\TextUI\ResultPrinter::class] = static function () {
+                return 1;
+            };
             $this->container = new Container($container);
         }
         return $this->container;
@@ -134,19 +137,34 @@ class ResolverClassTest extends TestCase
     /**
      * test de possible solution en cas d'erreur
      * @throws \ReflectionException
+     * @noinspection PhpUndefinedClassInspection
      */
     public function testPossibleSolutionInError(): void
     {
         $resolver = new ResolverClass($this->getContainer());
         try {
-            /**
-             * @phpstan-ignore-next-line
-             * @noinspection PhpUndefinedClassInspection
-             */
+            /** @phpstan-ignore-next-line */
             $resolver(\ZicArchive::class);
         } catch (UnresolvedException $e) {
             self::assertStringContainsString('ZicArchive', $e->getMessage());
             self::assertStringContainsString('ZipArchive', $e->getMessage());
+        }
+    }
+
+
+    /**
+     * test de possible solution en cas d'erreur
+     * @throws \ReflectionException
+     */
+    public function testPossibleSolutionInInterfaceNotFound(): void
+    {
+        $resolver = new ResolverClass($this->getContainer());
+        try {
+            /** @phpstan-ignore-next-line */
+            $resolver(\PHPUnit\TextUI\resultPrinter::class);
+        } catch (UnresolvedException $e) {
+            self::assertStringContainsString('resultPrinter', $e->getMessage());
+            self::assertStringContainsString('ResultPrinter', $e->getMessage());
         }
     }
 }
