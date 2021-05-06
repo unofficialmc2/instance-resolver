@@ -31,6 +31,10 @@
     }
   },
   "scripts": {
-    "test" : "phpunit"
+    "test": "phpunit",
+    "check": [
+      "phpcs",
+      "phpstan analyse"
+    ]
   }
 }
