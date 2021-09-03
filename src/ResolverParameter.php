@@ -8,6 +8,8 @@ declare(strict_types=1);
 
 namespace InstanceResolver;
 
+use InstanceResolver\Exception\UnresolvedException;
+
 /**
  * Class ResolverParameter
  * @package Resolver
@@ -51,7 +53,16 @@ class ResolverParameter
             );
         }
         $resolverClass = $this->resolver;
-        return $resolverClass($parametre->getClass()->getName());
+        try {
+            return $resolverClass($parametre->getClass()->getName());
+        } catch (UnresolvedException $ex) {
+            $exceptionType = '\\' . \get_class($ex);
+            throw new $exceptionType(
+                "Dans $nom : " . $ex->getMessage(),
+                $ex->getCode(),
+                $ex
+            );
+        }
     }
 
     /**

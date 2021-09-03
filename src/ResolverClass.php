@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace InstanceResolver;
 
+use InstanceResolver\Exception\UnresolvedException;
 use Psr\Container\ContainerInterface;
 
 class ResolverClass
@@ -63,10 +64,32 @@ class ResolverClass
         $constructor = $refectClass->getConstructor();
         if (!is_null($constructor)) {
             $paramConstructorList = $constructor->getParameters();
-            $paramResolved = $this->resolveParams($paramConstructorList);
+            try {
+                $paramResolved = $this->resolveParams($paramConstructorList);
+            } catch (UnresolvedException $ex) {
+                $exceptionType = '\\' . get_class($ex);
+                throw new $exceptionType(
+                    "Dans $searchClass : " . $ex->getMessage(),
+                    $ex->getCode(),
+                    $ex
+                );
+            }
             return new $searchClass(...$paramResolved);
         }
         return new $searchClass();
+    }
+
+    /**
+     * recherche un nom parmi les interface déclarées dans le container
+     * @param string $searchInterface
+     * @return string[]
+     */
+    private function listPossibleInterface(string $searchInterface): array
+    {
+        $similar = self::similarItems($searchInterface, get_declared_interfaces());
+        return array_filter($similar, function ($interface) {
+            return $this->container->has($interface);
+        });
     }
 
     /**
@@ -100,19 +123,6 @@ class ResolverClass
     private function listPossibleClass(string $searchClass): array
     {
         return self::similarItems($searchClass, get_declared_classes());
-    }
-
-    /**
-     * recherche un nom parmi les interface déclarées dans le container
-     * @param string $searchInterface
-     * @return string[]
-     */
-    private function listPossibleInterface(string $searchInterface): array
-    {
-        $similar = self::similarItems($searchInterface, get_declared_interfaces());
-        return array_filter($similar, function ($interface) {
-            return $this->container->has($interface);
-        });
     }
 
     /**
