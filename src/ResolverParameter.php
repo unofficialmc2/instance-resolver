@@ -64,6 +64,7 @@ class ResolverParameter
         $noObjectType = [
             "boolean",
             "integer",
+            "int",
             "double",
             "string",
             "array",

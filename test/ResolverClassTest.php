@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Test;
 
 use InstanceResolver\Exception\UnresolvedException;
+use InstanceResolver\Exception\UnresolvedParameter;
 use InstanceResolver\ResolverClass;
 use PHPUnit\Framework\TestCase;
 use Pimple\Container as Pimple;
@@ -166,5 +167,16 @@ class ResolverClassTest extends TestCase
             self::assertStringContainsString('resultPrinter', $e->getMessage());
             self::assertStringContainsString('ResultPrinter', $e->getMessage());
         }
+    }
+
+    /**
+     * Test les paramètre de type scalaire
+     * @throws \ReflectionException
+     */
+    public function testParamConstruct(): void
+    {
+        $this->expectException(UnresolvedParameter::class);
+        $resolver = new ResolverClass($this->getContainer());
+        $resolver(H::class);
     }
 }
