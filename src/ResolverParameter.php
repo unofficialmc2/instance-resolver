@@ -73,7 +73,7 @@ class ResolverParameter
     private function isNotObject(string $type)
     {
         $noObjectType = [
-            "boolean",
+            "bool",
             "integer",
             "int",
             "double",
@@ -85,6 +85,6 @@ class ResolverParameter
             "unknown type",
             "callable"
         ];
-        return array_search($type, $noObjectType);
+        return in_array($type, $noObjectType);
     }
 }
