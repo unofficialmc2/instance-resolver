@@ -179,4 +179,16 @@ class ResolverClassTest extends TestCase
         $resolver = new ResolverClass($this->getContainer());
         $resolver(H::class);
     }
+
+    /**
+     * Test l'initialisation d'un boolean impossible
+     * @return void
+     * @throws \ReflectionException
+     */
+    public function testResolveBoolParameter(): void
+    {
+        $this->expectException(UnresolvedParameter::class);
+        $resolver = new ResolverClass($this->getContainer());
+        $resolver(BoolClass::class);
+    }
 }
