@@ -14,6 +14,10 @@ namespace Test;
  */
 class BoolClass
 {
+    /**
+     * @var bool pour illustration
+     * @phpstan-ignore-next-line : propriété écrite, mais jamais lue.
+     */
     private bool $test;
 
     public function __construct(bool $test)
