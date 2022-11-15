@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace InstanceResolver;
 
 use InstanceResolver\Exception\UnresolvedException;
+use ReflectionNamedType;
 
 /**
  * Class ResolverParameter
@@ -44,8 +45,16 @@ class ResolverParameter
                 "Le paramètre $nom ne peut pas être déterminé"
             );
         }
-        /** @var \ReflectionNamedType $type */
         $type = $parametre->getType();
+        if (get_class($type) !== ReflectionNamedType::class) {
+            if ($parametre->allowsNull()) {
+                return null;
+            }
+            throw new Exception\UnresolvedParameter(
+                "Le paramètre $nom a plusieurs types possibles et ne peut pas être déterminé"
+            );
+        }
+        /** @var ReflectionNamedType $type */
         $nameType = $type->getName();
         if ($this->isNotObject($nameType)) {
             throw new Exception\UnresolvedParameter(
@@ -54,7 +63,7 @@ class ResolverParameter
         }
         $resolverClass = $this->resolver;
         try {
-            return $resolverClass($parametre->getClass()->getName());
+            return $resolverClass($nameType);
         } catch (UnresolvedException $ex) {
             $exceptionType = '\\' . \get_class($ex);
             throw new $exceptionType(
