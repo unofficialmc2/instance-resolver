@@ -1,12 +1,12 @@
 {
-  "name": "fzed51/instance-resolver",
+  "name": "unofficialmc2/instance-resolver",
   "description": "Resolver d'instance, auto link",
   "type": "library",
   "license": "MIT",
   "authors": [
     {
       "name": "Fabien Sanchez",
-      "email": "fzed51+git@gmail.com"
+      "email": "fabien.sanchez@arche-mc2.fr"
     }
   ],
   "minimum-stability": "stable",
