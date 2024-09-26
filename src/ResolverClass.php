@@ -13,8 +13,7 @@ use Psr\Container\ContainerInterface;
 
 class ResolverClass
 {
-    /** @var \Psr\Container\ContainerInterface ContainerInterface */
-    private $container;
+    private ContainerInterface $container;
 
     /**
      * Undocumented function
@@ -31,7 +30,7 @@ class ResolverClass
      * @return mixed instance demandé
      * @throws \ReflectionException
      */
-    public function __invoke(string $searchClass)
+    public function __invoke(string $searchClass): mixed
     {
         if ($this->container->has($searchClass)) {
             return $this->container->get($searchClass);
@@ -130,7 +129,7 @@ class ResolverClass
      * @param \ReflectionParameter[] $parametres
      * @return mixed[];
      */
-    protected function resolveParams(array $parametres)
+    protected function resolveParams(array $parametres): array
     {
         $paramsTrouvable = array_filter(
             $parametres,
